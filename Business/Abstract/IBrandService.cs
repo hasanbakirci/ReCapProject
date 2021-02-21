@@ -5,9 +5,8 @@ using System.Text;
 
 namespace Business.Abstract
 {
-    public interface ICarService
+    public interface IBrandService
     {
-        List<Car> GetAll();
-        void Add(Car car);
+        List<Brand> GetAll();
     }
 }
