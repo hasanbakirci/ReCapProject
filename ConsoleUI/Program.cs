@@ -11,13 +11,19 @@ namespace ConsoleUI
         static void Main(string[] args)
         {
             //AddCar();
+            CarDetails();
+
+        }
+
+        private static void CarDetails()
+        {
             CarManager carManager2 = new CarManager(new EfCarDal());
             var result = carManager2.GetCarDetails();
-            foreach (var c in carManager2.GetCarDetails())
-            {
-                Console.WriteLine("{0} -- {1} -- {2} ",c.ColorName,c.BrandName,c.ModelYear);
-            }
 
+            foreach (var c in carManager2.GetCarDetails().Data)
+            {
+                Console.WriteLine("{0} -- {1} -- {2} --> {3} # {4} # ", c.ColorName, c.BrandName, c.ModelYear,result.Success,result.Message);
+            }
         }
 
         private static void AddCar()
@@ -26,12 +32,16 @@ namespace ConsoleUI
             car.BrandId = 2;
             car.ColorId = 3;
             car.DailyPrice = 6;
-            car.Description = "Naber2";
+            car.Description = "Naber3";
             car.ModelYear = 2021;
 
             CarManager carManager = new CarManager(new EfCarDal());
-            carManager.Add(car);
-            foreach (var mycar in carManager.GetAll())
+            var result = carManager.Add(car);
+            if (result.Success)
+            {
+                Console.WriteLine(result.Message);
+            }
+            foreach (var mycar in carManager.GetAll().Data)
             {
                 Console.WriteLine(mycar.ModelYear);
             }
