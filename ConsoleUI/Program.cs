@@ -10,13 +10,24 @@ namespace ConsoleUI
     {
         static void Main(string[] args)
         {
+            //AddCar();
+            CarManager carManager2 = new CarManager(new EfCarDal());
+            var result = carManager2.GetCarDetails();
+            foreach (var c in carManager2.GetCarDetails())
+            {
+                Console.WriteLine("{0} -- {1} -- {2} ",c.ColorName,c.BrandName,c.ModelYear);
+            }
+
+        }
+
+        private static void AddCar()
+        {
             Car car = new Car();
-            car.Id = 6;
-            car.BrandId = 3;
-            car.ColorId = 1;
-            car.DailyPrice = 0;
-            car.Description = "Naber";
-            car.ModelYear = 2020;
+            car.BrandId = 2;
+            car.ColorId = 3;
+            car.DailyPrice = 6;
+            car.Description = "Naber2";
+            car.ModelYear = 2021;
 
             CarManager carManager = new CarManager(new EfCarDal());
             carManager.Add(car);
@@ -24,7 +35,6 @@ namespace ConsoleUI
             {
                 Console.WriteLine(mycar.ModelYear);
             }
-            
         }
     }
 }
