@@ -18,8 +18,89 @@ namespace ConsoleUI
             //BrandAdd();
             //CarGetAll();
             //CarDelete();
-            CarGetById();
+            //CarGetById();
+            //UserAdd();
+            //UserGetAll();
+            //CustomerGetAll();
+            //CustomerAdd();
+            //RentalGetAll();
+            //RentalAdd();
+            RentalUpdate();
+        }
 
+        private static void RentalUpdate()
+        {
+            Rental rental = new Rental();
+            rental.Id = 1;
+            rental.ReturnDate = DateTime.Today;
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Update(rental);
+            Console.WriteLine(result.Message);
+            RentalGetAll();
+        }
+
+        private static void RentalAdd()
+        {
+            Rental rental = new Rental();
+            rental.CarId = 1;
+            rental.CustomerId = 1;
+            rental.RentDate = DateTime.Today;
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.Add(rental);
+            Console.WriteLine(result.Message);
+            RentalGetAll();
+        }
+
+        private static void RentalGetAll()
+        {
+            RentalManager rentalManager = new RentalManager(new EfRentalDal());
+            var result = rentalManager.GetAll();
+            foreach (var r in result.Data)
+            {
+                Console.WriteLine("{0} -> {1} - {2} - {3} / {4}", r.Id, r.CustomerId, r.CarId, r.RentDate,r.ReturnDate);
+            }
+        }
+
+        private static void CustomerAdd()
+        {
+            Customer customer = new Customer();
+            customer.UserId = 1;
+            customer.CompanyName = "Ha San";
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            customerManager.Add(customer);
+            CustomerGetAll();
+        }
+
+        private static void CustomerGetAll()
+        {
+            CustomerManager customerManager = new CustomerManager(new EfCustomerDal());
+            var result = customerManager.GetAll();
+            foreach (var r in result.Data)
+            {
+                Console.WriteLine("{0} -> {1} - {2}", r.Id, r.UserId, r.CompanyName);
+            }
+        }
+
+        private static void UserGetAll()
+        {
+            UserManager carManager = new UserManager(new EfUserDal());
+            var result = carManager.GetAll();
+            foreach (var r in result.Data)
+            {
+                Console.WriteLine("{0} -> {1} - {2} - {3} ", r.Id, r.FirstName, r.LastName, r.Email);
+            }
+        }
+
+        private static void UserAdd()
+        {
+            User user = new User();
+            user.FirstName = "Hasan";
+            user.LastName = "Bakirci";
+            user.Email = "hasan@gmail.com";
+            user.Password = "12345";
+            UserManager carManager = new UserManager(new EfUserDal());
+            carManager.Add(user);
+            UserGetAll();
         }
 
         private static void CarGetById()
