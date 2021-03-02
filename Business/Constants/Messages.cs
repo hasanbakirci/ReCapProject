@@ -24,5 +24,6 @@ namespace Business.Constants
 
 
         public  static string RentalError = "Bu araç kiralanamaz";
+        public  static string CountOfCarImagesCorrect = "Bir araç en fazla üç resme sahip olabilir";
     }
 }

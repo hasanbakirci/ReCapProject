@@ -1,5 +1,9 @@
 ﻿using Business.Abstract;
+using Business.Constants;
 using Business.Utilities.Results;
+using Business.ValidationRules.FluentValidation;
+using Core.Aspects.Autofac.Validation;
+using Core.Utilities.Business;
 using Core.Utilities.Helpers;
 using Core.Utilities.Results;
 using DataAccess.Abstract;
@@ -20,8 +24,15 @@ namespace Business.Concrete
             _carImageDal = carImageDal;
         }
 
+
+        [ValidationAspect(typeof(CarImageValidator))]
         public IResult Add(IFormFile file, CarImage carImage)
         {
+            IResult result = BusinessRules.Run(CheckIfCountOfCarImagesCorrect(carImage.CarId));
+            if (result != null)
+            {
+                return result;
+            }
             carImage.ImagePath = FileHelper.Add(file);
             carImage.Date = DateTime.Now;
             _carImageDal.Add(carImage);
@@ -55,6 +66,16 @@ namespace Business.Concrete
             carImage.ImagePath = FileHelper.Update(_carImageDal.Get(p => p.Id == carImage.Id).ImagePath, file);
             carImage.Date = DateTime.Now;
             _carImageDal.Update(carImage);
+            return new SuccessResult();
+        }
+
+        private IResult CheckIfCountOfCarImagesCorrect(int carId)
+        {
+            var result = _carImageDal.GetAll(c => c.CarId == carId).Count;
+            if (result >= 3)
+            {
+                return new ErrorResult(Messages.CountOfCarImagesCorrect);
+            }
             return new SuccessResult();
         }
     }
