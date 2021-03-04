@@ -80,7 +80,7 @@ namespace ConsoleUI
                 Console.WriteLine("{0} -> {1} - {2}", r.Id, r.UserId, r.CompanyName);
             }
         }
-
+        /*
         private static void UserGetAll()
         {
             UserManager carManager = new UserManager(new EfUserDal());
@@ -102,7 +102,7 @@ namespace ConsoleUI
             carManager.Add(user);
             UserGetAll();
         }
-
+        */
         private static void CarGetById()
         {
             CarManager carManager = new CarManager(new EfCarDal());
