@@ -25,5 +25,11 @@ namespace Business.Constants
 
         public  static string RentalError = "Bu araç kiralanamaz";
         public  static string CountOfCarImagesCorrect = "Bir araç en fazla üç resme sahip olabilir";
+
+        public static string UserNotFound = "Kullanıcı bulunamadı";
+        public static string PasswordError = "Şifre hatalı";
+        public static string UserRegistered = "Başarıyla kayıt olundu";
+        public static string AccessTokenCreated = "Access Token başarıyla oluşturuldu";
+        public static string AuthorizationDenied = "Yetkiniz yok";
     }
 }
